@@ -46,7 +46,7 @@ export default function AdminToolsPage() {
 
   const fetchTools = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/tools');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools`);
       const data = await response.json();
       if (data.success) {
         setTools(data.data || []);
@@ -87,7 +87,7 @@ export default function AdminToolsPage() {
 
   const toggleTrending = async (toolId: string, currentStatus: boolean) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/tools/${toolId}/trending`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/${toolId}/trending`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -110,7 +110,7 @@ export default function AdminToolsPage() {
 
   const toggleNew = async (toolId: string, currentStatus: boolean) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/tools/${toolId}/new`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/${toolId}/new`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -155,7 +155,7 @@ export default function AdminToolsPage() {
 
     try {
       const promises = selectedTools.map(toolId =>
-        fetch(`http://localhost:5000/api/tools/${toolId}/trending`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/${toolId}/trending`, {
           method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -187,7 +187,7 @@ export default function AdminToolsPage() {
 
     try {
       const promises = selectedTools.map(toolId =>
-        fetch(`http://localhost:5000/api/tools/${toolId}/new`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/${toolId}/new`, {
           method: 'PUT',
           headers: {
             'Authorization': `Bearer ${token}`,

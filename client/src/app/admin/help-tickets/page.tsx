@@ -35,7 +35,7 @@ export default function AdminHelpTicketsPage() {
   const fetchDashboardData = async () => {
     try {
       // Fetch stats
-      const statsRes = await fetch('http://localhost:5000/api/help/stats', {
+      const statsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/help/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -63,7 +63,7 @@ export default function AdminHelpTicketsPage() {
       if (filter.priority) queryParams.append('priority', filter.priority);
       if (filter.search) queryParams.append('search', filter.search);
 
-      const response = await fetch(`http://localhost:5000/api/help/tickets?${queryParams}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/help/tickets?${queryParams}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -80,7 +80,7 @@ export default function AdminHelpTicketsPage() {
 
   const updateTicketStatus = async (ticketId: string, status: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/help/tickets/${ticketId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/help/tickets/${ticketId}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -108,7 +108,7 @@ export default function AdminHelpTicketsPage() {
     if (!confirm('Are you sure you want to delete this ticket?')) return;
 
     try {
-      const response = await fetch(`http://localhost:5000/api/help/tickets/${ticketId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/help/tickets/${ticketId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

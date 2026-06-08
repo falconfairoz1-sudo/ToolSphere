@@ -45,7 +45,7 @@ export default function AdminPage() {
   const fetchStats = async () => {
     try {
       // Fetch help ticket stats
-      const response = await fetch('http://localhost:5000/api/help/stats', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/help/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
