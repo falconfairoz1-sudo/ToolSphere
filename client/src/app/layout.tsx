@@ -54,12 +54,17 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#111827' }
-  ],
   manifest: '/manifest.json',
+}
+
+export function generateViewport() {
+  return {
+    viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+    themeColor: [
+      { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+      { media: '(prefers-color-scheme: dark)', color: '#111827' },
+    ],
+  }
 }
 
 export default function RootLayout({
