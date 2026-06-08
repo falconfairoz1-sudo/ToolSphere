@@ -43,7 +43,8 @@ const corsOptions = {
     if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     }
-    return callback(new Error('CORS: Origin not allowed'));
+    console.warn(`CORS blocked origin: ${origin}`);
+    return callback(null, false);
   },
   credentials: true,
   optionsSuccessStatus: 200,
