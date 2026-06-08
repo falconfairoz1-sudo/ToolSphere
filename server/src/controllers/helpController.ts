@@ -136,7 +136,7 @@ export const updateTicket = async (req: AuthRequest, res: Response) => {
     if (priority) ticket.priority = priority;
 
     if (status === 'resolved' || status === 'closed') {
-      ticket.resolvedBy = req.user._id;
+      ticket.resolvedBy = req.user?._id as any;
       ticket.resolvedAt = new Date();
     }
 

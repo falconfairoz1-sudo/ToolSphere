@@ -273,7 +273,6 @@ export const toolIcons: Record<string, string> = {
   // Business
   'business-name': '🏢',
   'startup-validator': '🚀',
-  'invoice-generator': '🧾',
   'receipt-generator': '🧾',
   'pitch-deck': '📊',
   'swot-analysis': '📈',
@@ -304,7 +303,6 @@ export const toolIcons: Record<string, string> = {
   'power-converter': '🔋',
   'angle-converter': '📐',
   'fuel-converter': '⛽',
-  'roman-numeral-converter': 'Ⅰ',
   'frequency-converter': '📻',
   'cooking-converter': '👨‍🍳',
   'shoe-size-converter': '👟',
@@ -345,7 +343,6 @@ export const toolIcons: Record<string, string> = {
   'word-spacing': '↕️',
   
   // Utility Tools
-  'word-counter': '🔢',
   'word-reader': '📖',
   'word-rotate': '🔄',
   'word-repair': '🔧',
