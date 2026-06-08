@@ -22,7 +22,7 @@ export default function SearchBar() {
 
   useEffect(() => {
     // Fetch all tools
-    fetch('http://localhost:5000/api/tools')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools`)
       .then(res => res.json())
       .then(data => {
         setAllTools(data.data || []);

@@ -16,7 +16,7 @@ export default function TrendingToolsPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/tools')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools`)
       .then(res => res.json())
       .then(data => {
         const toolsData = data.data || [];

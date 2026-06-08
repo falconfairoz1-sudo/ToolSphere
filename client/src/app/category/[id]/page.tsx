@@ -30,7 +30,7 @@ export default function CategoryPage() {
   }, [tools, searchQuery]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/tools/category/${categoryId}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/category/${categoryId}`)
       .then(res => res.json())
       .then(data => {
         setTools(data.data || []);

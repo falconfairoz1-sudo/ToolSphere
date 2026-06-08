@@ -24,7 +24,7 @@ export default function HelpPage() {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/help/tickets', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/help/tickets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

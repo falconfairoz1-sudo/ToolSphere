@@ -22,7 +22,7 @@ export default function Home() {
 
   useEffect(() => {
     console.log('=== FETCHING TOOLS FROM BACKEND ===');
-    fetch('http://localhost:5000/api/tools')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools`)
       .then(res => {
         console.log('Response status:', res.status);
         console.log('Response headers:', res.headers);
