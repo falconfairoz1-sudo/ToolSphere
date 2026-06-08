@@ -40,21 +40,21 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 
 const corsOptions = {
   origin: (origin: any, callback: (err: Error | null, allow?: boolean) => void) => {
-    // Allow requests with no origin (like curl or server-to-server requests)
-    if (!origin) return callback(null, true);
+    if (!origin) {
+      return callback(null, true);
+    }
 
-    // If no allowed origins are configured in production, allow the request
-    // and log the situation so the backend can be configured properly.
     if (allowedOrigins.length === 0) {
       console.warn('ALLOWED_ORIGINS is not configured; allowing all origins for CORS.');
       return callback(null, true);
     }
 
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+
     console.warn(`CORS blocked origin: ${origin}`);
-    return callback(null, false);
+    return callback(new Error('CORS blocked'));
   },
   credentials: true,
   optionsSuccessStatus: 200,
@@ -62,6 +62,27 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
+
+// Explicit fallback headers in case the deployed platform strips CORS headers.
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (!origin) {
+    return next();
+  }
+
+  const allowed = allowedOrigins.length === 0 || allowedOrigins.includes(origin);
+  if (allowed) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    );
+    res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+  }
+
+  next();
+});
 
 // Compression middleware
 app.use(compression());
