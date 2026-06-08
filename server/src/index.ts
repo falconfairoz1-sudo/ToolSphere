@@ -34,12 +34,22 @@ app.use(helmet());
 // CORS configuration
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(',').map(s => s.trim())
-  : ['http://localhost:3000'];
+  : process.env.NODE_ENV === 'development'
+  ? ['http://localhost:3000']
+  : [];
 
 const corsOptions = {
   origin: (origin: any, callback: (err: Error | null, allow?: boolean) => void) => {
-    // Allow requests with no origin (like curl, server-to-server requests)
+    // Allow requests with no origin (like curl or server-to-server requests)
     if (!origin) return callback(null, true);
+
+    // If no allowed origins are configured in production, allow the request
+    // and log the situation so the backend can be configured properly.
+    if (allowedOrigins.length === 0) {
+      console.warn('ALLOWED_ORIGINS is not configured; allowing all origins for CORS.');
+      return callback(null, true);
+    }
+
     if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     }
